@@ -11,12 +11,12 @@ Speak Turkish.
 `;
 
 async function comparePhones(){
-    const p1 = document.getElementById("phone1").value;
-    const p2 = document.getElementById("phone2").value;
+    const phone1 = document.getElementById("phone1").value.trim();
+    const phone2 = document.getElementById("phone2").value.trim();
     const mode = document.getElementById("mode").value;
     const resultDiv = document.getElementById("result");
 
-    if(!p1 || !p2){
+    if(!phone1 || !phone2){
         resultDiv.innerHTML = "❌ Lütfen iki telefonu da yazın";
         return;
     }
@@ -26,8 +26,8 @@ async function comparePhones(){
     const userPrompt = `
 Karşılaştır bu iki telefonu:
 
-Telefon 1: ${p1}
-Telefon 2: ${p2}
+Telefon 1: ${phone1}
+Telefon 2: ${phone2}
 
 Aşağıya göre değerlendir:
 - ${mode} için hangisi daha iyi
@@ -37,19 +37,19 @@ Aşağıya göre değerlendir:
 `;
 
     try{
-        const res = await fetch("https://api.openai.com/v1/chat/completions",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":"Bearer " + OPENAI_API_KEY
+        const res = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + OPENAI_API_KEY
             },
-            body:JSON.stringify({
-                model:"gpt-4o-mini",
-                messages:[
-                    {role:"system", content:SYSTEM_PROMPT},
-                    {role:"user", content:userPrompt}
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                messages: [
+                    { role: "system", content: SYSTEM_PROMPT },
+                    { role: "user", content: userPrompt }
                 ],
-                temperature:0.4
+                temperature: 0.4
             })
         });
 
@@ -57,11 +57,11 @@ Aşağıya göre değerlendir:
         const aiText = data.choices[0].message.content;
 
         resultDiv.innerHTML = `
-          <h3>📊 AI Sonucu</h3>
-          <p>${aiText.replace(/\n/g,"<br>")}</p>
-          <hr>
-          <small>⚠️ Sonuçlar AI yorumudur, reklam yoktur.</small>
-        `;
+<h3>📊 AI Sonucu</h3>
+<p>${aiText.replace(/\n/g,"<br>")}</p>
+<hr>
+<small>⚠️ Sonuçlar AI yorumudur, reklam yoktur.</small>
+`;
     }catch(e){
         console.error(e);
         resultDiv.innerHTML = "❌ OpenAI bağlantı hatası veya API key eksik";
