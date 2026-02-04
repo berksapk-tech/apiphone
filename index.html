@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>AI Telefon Karşılaştırma</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>🤖 AI Telefon Karşılaştırma</h2>
+
+<input id="phone1" placeholder="Telefon 1 (örn: iPhone 15 Pro Max)">
+<input id="phone2" placeholder="Telefon 2 (örn: iQOO 15)">
+<br>
+<select id="mode">
+  <option value="balanced">⚖️ Dengeli Kullanım</option>
+  <option value="gaming">🎮 Oyun</option>
+  <option value="camera">📷 Kamera</option>
+  <option value="battery">🔋 Pil</option>
+</select>
+<br>
+<button onclick="comparePhones()">Karşılaştır</button>
+
+<div id="result"></div>
+
+<script src="ai.js"></script>
+</body>
+</html>
